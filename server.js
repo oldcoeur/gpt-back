@@ -29,6 +29,12 @@ if (!process.env.OPENAI_API_KEY) {
   }
 }
 
+// Verificar si el archivo .env fue cargado correctamente
+if (!process.env.PORT || !process.env.MONGODB_URI) {
+  console.error('\x1b[31m%s\x1b[0m', '❌ Error: No se cargaron las variables de entorno correctamente. Verifica el archivo .env.');
+  process.exit(1);
+}
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -39,9 +45,12 @@ app.use(express.json());
 // MongoDB Connection
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://estebanmunoz03:CSKqcWG6knNzOEuR@cluster0.oyrru.mongodb.net/pruebagpt?';
 
-mongoose.connect(MONGODB_URI)
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('✅ MongoDB conectado'))
-  .catch(err => console.error('❌ Error de conexión a MongoDB:', err));
+  .catch(err => {
+    console.error('❌ Error de conexión a MongoDB:', err);
+    process.exit(1);
+  });
 
 // Rutas
 app.use('/api/chat', chatRoutes);

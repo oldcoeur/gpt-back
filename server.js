@@ -43,7 +43,7 @@ app.use(cors());
 app.use(express.json());
 
 // MongoDB Connection
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://estebanmunoz03:CSKqcWG6knNzOEuR@cluster0.oyrru.mongodb.net/pruebagpt?';
+const MONGODB_URI = process.env.MONGODB_URI || 6000;
 
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('✅ MongoDB conectado'))

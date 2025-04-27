@@ -36,7 +36,7 @@ if (!process.env.PORT || !process.env.MONGODB_URI) {
 }
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 6000;
 
 // Middleware
 app.use(cors());
@@ -63,7 +63,4 @@ app.get('/', (req, res) => {
   });
 });
 
-// Iniciar el servidor
-app.listen(PORT, () => {
-  console.log(`🚀 Servidor corriendo en el puerto ${PORT}`);
-});
+export const handler = serverless(app);
